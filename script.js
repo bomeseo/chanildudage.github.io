@@ -54,9 +54,13 @@ function updateLives() {
 function changePoopCell() {
   if (gameOver || poop1Active) return; // 게임 오버나 찬일 이벤트 중에는 똥 이미지 변경 안 함
 
-  // 이전에 똥이 있던 칸을 흰색으로 변경
+  // 이전에 있던 똥을 클릭했는지 확인하고, 클릭하지 않았다면 목숨 차감
   if (previousPoopIndex !== -1) {
     const previousCell = grid.children[previousPoopIndex];
+    if (!previousCell.clicked) {
+      lives -= 1; // 클릭하지 않으면 목숨 차감
+      updateLives();
+    }
     previousCell.classList.remove('poop');
   }
 
