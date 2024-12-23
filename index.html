@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5x5 그리드 게임</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      margin: 0;
+      padding: 10px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+      text-align: center;
+    }
+
+    p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #555;
+      text-align: center;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 60px);
+      grid-template-rows: repeat(5, 60px);
+      gap: 5px;
+      margin-top: 20px;
+    }
+
+    .cell {
+      width: 60px;
+      height: 60px;
+      background-color: white;
+      border: 1px solid #ddd;
+      background-size: cover; /* 이미지를 채우도록 설정 */
+    }
+
+    .poop {
+      background-image: url('poop.jpg'); /* poop 이미지 추가 */
+    }
+
+    #score, #high-score, #timer, #lives {
+      margin-top: 10px;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    #high-score {
+      margin-top: 5px;
+      color: #666;
+      font-size: 20px;
+    }
+
+    #penalty-info {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #e74c3c;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    #restart-button {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #restart-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>범서의 미니게임 - 클릭 그리드</h1>
+  <p>찬일을 클릭해봐!</p>
+  <div class="grid" id="grid"></div>
+  <div id="score">Score: 0</div>
+  <div id="high-score">최고기록: 0</div>
+  <div id="lives">Lives: 4</div>
+  <div id="timer">Time: 00:00</div>
+  <div id="penalty-info">제한시간 안에 못 누를 시 점수 차감!</div>
+  <button id="restart-button" onclick="restartGame()">다시 플레이</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
