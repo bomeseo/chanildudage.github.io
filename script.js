@@ -20,6 +20,7 @@ const livesElement = document.getElementById('lives');
 const timerElement = document.getElementById('timer');
 const penaltyInfoElement = document.getElementById('penalty-info');
 const restartButton = document.getElementById('restart-button');
+const gameOverMessage = document.getElementById('game-over-message'); // 게임 오버 메시지를 출력할 요소
 
 // 5x5 그리드 만들기 (총 25칸)
 for (let i = 0; i < 25; i++) {
@@ -66,7 +67,9 @@ function updateLives() {
     clearInterval(interval);
     stopAllMusic();
     restartButton.style.display = 'block';
-    alert('게임 오버!');
+    gameOverMessage.style.display = 'block'; // 게임 오버 메시지 표시
+    gameOverMessage.innerText = '찬일팸의 입단!'; // 메시지 변경
+    gameOverMessage.style.color = 'red'; // 빨간색으로 출력
   } else if (lives === 1 && !musicPlaying) {
     new Audio('aa.mp3').play();
     musicPlaying = true;
@@ -157,7 +160,7 @@ grid.addEventListener('click', function(event) {
     lives++;
     updateLives();
     new Audio('aa.mp3').play(); // 클릭하면 aa.mp3만 실행
-    partyClicked = true; // 찬일 파티 기간 동안 클릭함
+    partyClicked = true; // 찬일 파티 기간 동안 클릭됨
   }
 
   // 찬일 파티 기간 동안 블럭 클릭 시 목숨 1 추가하고 aa.mp3 출력
@@ -218,22 +221,21 @@ function restartGame() {
   timer = 0;
   gameOver = false;
   changilPartyActive = false;
-  poop1Clicked = false; // 찬일 파티 클릭 여부 초기화
-  restartButton.style.display = 'none'; // 다시 플레이 버튼 숨기기
+  poop1Clicked = false;
+  musicPlaying = false;
+  previousPoopIndex = -1;
+  partyClicked = false;
+
+  gameOverMessage.style.display = 'none'; // 게임 오버 메시지 숨기기
+  restartButton.style.display = 'none'; // 다시 시작 버튼 숨기기
   updateScore();
   updateLives();
-  
-  // 음악 끄기
-  stopAllMusic();
 
   clearInterval(interval); // 기존 타이머 종료
   interval = setInterval(() => {
     updateTimer();
   }, 1000); // 타이머 재시작
   setInterval(changePoopCell, 1000); // 게임 시작 시 다시 똥 이미지 변경 시작
-
-  // 페이지 새로고침
-  location.reload();
 }
 
 // 모든 음악을 멈추는 함수
